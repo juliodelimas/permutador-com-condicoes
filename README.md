@@ -1,18 +1,18 @@
 
-# Gerador de Tabelas de Decisão
+# Permutador com Condições
 
 Este projeto oferece uma ferramenta simples para ajudar testadores da comunidade de testes a gerar permutações de dados utilizando a técnica de partição de equivalência. Além disso, permite adicionar condicionais (variáveis de entrada e saída) e baixar as tabelas geradas em formato CSV para uso em testes de software.
 
 ## Descrição
 
-A ferramenta permite que o usuário insira variáveis de entrada e saída com suas respectivas partições e, a partir disso, gera uma tabela de decisão com todas as possíveis combinações (permutação) entre as variáveis de entrada. A tabela pode incluir campos de seleção para as variáveis de saída, permitindo que o testador customize as opções de saída para cada cenário de teste.
+A ferramenta permite que o usuário insira variáveis de entrada e saída com suas respectivas partições e, a partir disso, gera uma tabela de permutações com a possibilidade de seleção de resultados (como uma Tabela de Decisão) com todas as possíveis combinações (permutação) entre as variáveis de entrada. A tabela pode incluir campos de seleção para as variáveis de saída, permitindo que o testador customize as opções de saída para cada cenário de teste.
 
 ### Funcionalidades
 
 - **Entrada de Variáveis**: Permite inserir variáveis de entrada com suas respectivas partições.
 - **Saída de Variáveis**: Permite inserir variáveis de saída com suas respectivas partições.
 - **Geração de Permutações**: Gera automaticamente todas as permutações possíveis entre as partições de entrada.
-- **Tabela de Decisão**: Exibe as permutações em uma tabela organizada, com campos para seleção das variáveis de saída.
+- **Tabela de Permutação com Condições**: Exibe as permutações em uma tabela organizada, com campos para seleção das variáveis de saída.
 - **Download em CSV**: Permite baixar a tabela de decisão gerada em formato CSV para uso posterior.
 
 ## Como Usar
