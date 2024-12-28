@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Tabelas de Decisão</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin: 10px 5px 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        select {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Gerador de Tabelas de Decisão</h1>
+    <h2>Variáveis de Entrada</h2>
+    <textarea id="inputVariables" placeholder="Exemplo:
+Variável de Entrada 1:Partição 1, Partição 2, Partição 3
+Variável de Entrada 2:Partição A, Partição B"></textarea>
+
+    <h2>Variáveis de Saída</h2>
+    <textarea id="outputVariables" placeholder="Exemplo:
+Variável de Saída 1:Partição X, Partição Y, Partição Z
+Variável de Saída 2:Partição Alpha, Partição Beta"></textarea>
+    <p>
+        <button id="generateTable">Permutar</button>
+    </p>
+    <h2 id="resultado-title" style="display: none;">Resultado</h2>
+    <div id="resultTable"></div>
+
+    <p>
+        <button id="downloadCSV" style="display: none;">Baixar Tabela (CSV)</button>
+    </p>
+    <script>
+        function parseInput(text) {
+            const variables = text.split("\n").filter(line => line.trim() !== "");
+            const partitions = variables.map(line => {
+                const [variable, parts] = line.split(":");
+                return parts ? parts.split(",").map(part => part.trim()) : [];
+            });
+            return { variables, partitions };
+        }
+
+        function permute(arrays) {
+            if (arrays.length === 0) return [[]];
+            const [first, ...rest] = arrays;
+            const restPermuted = permute(rest);
+            return first.flatMap(item => restPermuted.map(perm => [item, ...perm]));
+        }
+
+        function generateTableHTML(inputData, outputData, headersInput, headersOutput) {
+            let html = "<table>";
+            html += "<tr><th>Caso de Teste ID</th>"
+                + headersInput.map(h => `<th>${h.split(':')[0]}</th>`).join("")
+                + headersOutput.map(h => `<th>${h.split(':')[0]}</th>`).join("")
+                + "</tr>";
+
+            inputData.forEach((row, index) => {
+                html += `<tr><td>${index + 1}</td>`;
+                html += row.map(cell => `<td>${cell}</td>`).join("");
+                html += headersOutput.map((_, idx) => {
+                    const options = outputData[idx] || [];
+                    const optionsHTML = options.map(opt => `<option value="${opt}">${opt}</option>`).join("");
+                    return `<td><select class="output-select">${optionsHTML}</select></td>`;
+                }).join("");
+                html += "</tr>";
+            });
+
+            html += "</table>";
+            return html;
+        }
+
+        function generateCSV() {
+            const table = document.querySelector("#resultTable table");
+            const rows = table.querySelectorAll("tbody tr");
+            const headers = Array.from(table.querySelectorAll("th")).map(th => th.innerText);
+            const csvData = [];
+
+            csvData.push(headers.join(","));
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll("td");
+                const rowData = [];
+
+                cells.forEach(cell => {
+                    const select = cell.querySelector("select");
+                    if (select) {
+                        rowData.push(select.value);
+                    } else {
+                        rowData.push(cell.innerText);
+                    }
+                });
+
+                if (rowData.length > 0) {
+                    csvData.push(rowData.join(","));
+                }
+            });
+
+            return csvData.join("\n");
+        }
+
+        function downloadCSV(content, filename) {
+            const blob = new Blob([content], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.style.display = "none";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        document.getElementById("generateTable").addEventListener("click", () => {
+            const inputText = document.getElementById("inputVariables").value;
+            const outputText = document.getElementById("outputVariables").value;
+            const partitionsInput = parseInput(inputText).partitions;
+            const partitionsOutput = parseInput(outputText).partitions;
+
+            const permutations = permute(partitionsInput);
+            const headersInput = parseInput(inputText).variables;
+            const headersOutput = parseInput(outputText).variables;
+
+            const resultTable = generateTableHTML(permutations, partitionsOutput, headersInput, headersOutput);
+            document.getElementById("resultado-title").style = '';
+            document.getElementById("resultTable").innerHTML = resultTable;
+            document.getElementById("downloadCSV").style = '';
+        });
+
+        document.getElementById("downloadCSV").addEventListener("click", () => {
+            downloadCSV(generateCSV(), "tabela_decisao.csv");
+        });
+    </script>
+</body>
+
+</html>
