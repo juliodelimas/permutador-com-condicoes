@@ -63,6 +63,7 @@ Variável de Saída 2: Partição 1; Partição 2; Partição N"></textarea>
 
     <p>
         <button id="downloadCSV" style="display: none;">Baixar Tabela (CSV)</button>
+        <button id="downloadJSON" style="display: none;">Baixar Tabela (JSON)</button>
     </p>
     <script>
         function parseInput(text) {
@@ -157,10 +158,55 @@ Variável de Saída 2: Partição 1; Partição 2; Partição N"></textarea>
             document.getElementById("resultado-title").style = '';
             document.getElementById("resultTable").innerHTML = resultTable;
             document.getElementById("downloadCSV").style = '';
+            document.getElementById("downloadJSON").style = '';
         });
 
         document.getElementById("downloadCSV").addEventListener("click", () => {
             downloadCSV(generateCSV(), "tabela_permutacao_com_condicoes.csv");
+        });
+
+        function generateJSON() {
+            const table = document.querySelector("#resultTable table");
+            const rows = table.querySelectorAll("tbody tr");
+            const headers = Array.from(table.querySelectorAll("th")).map(th => th.innerText);
+            const jsonData = [];
+
+            rows.forEach(row => {
+                const cells = row.querySelectorAll("td");
+                const rowData = {};
+
+                cells.forEach((cell, index) => {
+                    const header = headers[index];
+                    const select = cell.querySelector("select");
+                    if (select) {
+                        rowData[header] = select.value;
+                    } else {
+                        rowData[header] = cell.innerText;
+                    }
+                });
+
+                if (Object.keys(rowData).length > 0) {
+                    jsonData.push(rowData);
+                }
+            });
+
+            return JSON.stringify(jsonData, null, 2);
+        }
+
+        function downloadJSON(content, filename) {
+            const blob = new Blob([content], { type: "application/json;charset=utf-8;" });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+            link.style.display = "none";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        document.getElementById("downloadJSON").addEventListener("click", () => {
+            const jsonContent = generateJSON();
+            downloadJSON(jsonContent, "tabela_permutacao_com_condicoes.json");
         });
     </script>
 </body>
