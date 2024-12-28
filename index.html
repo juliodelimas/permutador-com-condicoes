@@ -48,13 +48,13 @@
     <h1>Permutador com Condições</h1>
     <h2>Variáveis de Entrada</h2>
     <textarea id="inputVariables" placeholder="Exemplo:
-Variável de Entrada 1:Partição 1, Partição 2, Partição 3
-Variável de Entrada 2:Partição A, Partição B"></textarea>
+Variável de Entrada 1: Partição 1; Partição 2; Partição N
+Variável de Entrada 2: Partição 1; Partição 2; Partição N"></textarea>
 
     <h2>Variáveis de Saída</h2>
     <textarea id="outputVariables" placeholder="Exemplo:
-Variável de Saída 1:Partição X, Partição Y, Partição Z
-Variável de Saída 2:Partição Alpha, Partição Beta"></textarea>
+Variável de Saída 1: Partição 1; Partição 2; Partição N
+Variável de Saída 2: Partição 1; Partição 2; Partição N"></textarea>
     <p>
         <button id="generateTable">Permutar</button>
     </p>
@@ -69,7 +69,7 @@ Variável de Saída 2:Partição Alpha, Partição Beta"></textarea>
             const variables = text.split("\n").filter(line => line.trim() !== "");
             const partitions = variables.map(line => {
                 const [variable, parts] = line.split(":");
-                return parts ? parts.split(",").map(part => part.trim()) : [];
+                return parts ? parts.split(";").map(part => part.trim()) : [];
             });
             return { variables, partitions };
         }
@@ -109,7 +109,7 @@ Variável de Saída 2:Partição Alpha, Partição Beta"></textarea>
             const headers = Array.from(table.querySelectorAll("th")).map(th => th.innerText);
             const csvData = [];
 
-            csvData.push(headers.join(","));
+            csvData.push(headers.join(";"));
 
             rows.forEach(row => {
                 const cells = row.querySelectorAll("td");
@@ -125,7 +125,7 @@ Variável de Saída 2:Partição Alpha, Partição Beta"></textarea>
                 });
 
                 if (rowData.length > 0) {
-                    csvData.push(rowData.join(","));
+                    csvData.push(rowData.join(";"));
                 }
             });
 
@@ -160,7 +160,7 @@ Variável de Saída 2:Partição Alpha, Partição Beta"></textarea>
         });
 
         document.getElementById("downloadCSV").addEventListener("click", () => {
-            downloadCSV(generateCSV(), "tabela_decisao.csv");
+            downloadCSV(generateCSV(), "tabela_permutacao_com_condicoes.csv");
         });
     </script>
 </body>
