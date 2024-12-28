@@ -13,20 +13,20 @@ A ferramenta permite que o usuário insira variáveis de entrada e saída com su
 - **Saída de Variáveis**: Permite inserir variáveis de saída com suas respectivas partições.
 - **Geração de Permutações**: Gera automaticamente todas as permutações possíveis entre as partições de entrada.
 - **Tabela de Permutação com Condições**: Exibe as permutações em uma tabela organizada, com campos para seleção das variáveis de saída.
-- **Download em CSV**: Permite baixar a tabela de decisão gerada em formato CSV para uso posterior.
+- **Download em CSV**: Permite baixar a tabela de permutação com condições gerada em formato CSV para uso posterior.
 
 ## Como Usar
 
 1. **Variáveis de Entrada**: No campo de **Variáveis de Entrada**, insira o nome das variáveis seguidas das partições separadas por vírgula. Por exemplo:
     ```
-    Variável de Entrada 1: Partição 1, Partição 2, Partição 3
-    Variável de Entrada 2: Partição A, Partição B
+    Variável de Entrada 1: Partição 1; Partição 2; Partição N
+    Variável de Entrada 2: Partição 1; Partição 2; Partição N
     ```
 
 2. **Variáveis de Saída**: No campo de **Variáveis de Saída**, insira o nome das variáveis de saída seguidas das suas respectivas partições. Por exemplo:
     ```
-    Variável de Saída 1: Partição X, Partição Y
-    Variável de Saída 2: Partição Alpha, Partição Beta
+    Variável de Saída 1: Partição 1; Partição 2; Partição N
+    Variável de Saída 2: Partição 1; Partição 2; Partição N
     ```
 
 3. **Gerar Tabela**: Após inserir as variáveis, clique no botão **Permutar** para gerar a tabela de decisão.
@@ -37,14 +37,15 @@ A ferramenta permite que o usuário insira variáveis de entrada e saída com su
 
 ### Variáveis de Entrada
 ```
-Variável de Entrada 1: Partição 1, Partição 2, Partição 3
-Variável de Entrada 2: Partição A, Partição B
+Valor: < R$ 5000; >= R$ 5000
+Tipo: Simples; Interna; Externa
+Cliente: Comum; VIP
 ```
 
 ### Variáveis de Saída
 ```
-Variável de Saída 1: Partição X, Partição Y
-Variável de Saída 2: Partição Alpha, Partição Beta
+Resultado: Sucesso; Falha
+Status: Positivo; Negativo
 ```
 
 ### Resultado
