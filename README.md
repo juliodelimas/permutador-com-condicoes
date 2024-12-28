@@ -1,7 +1,7 @@
 
 # Permutador com Condições
 
-Este projeto oferece uma ferramenta simples para ajudar testadores da comunidade de testes a gerar permutações de dados utilizando a técnica de partição de equivalência. Além disso, permite adicionar condicionais (variáveis de entrada e saída) e baixar as tabelas geradas em formato CSV para uso em testes de software.
+Este projeto oferece uma ferramenta simples para ajudar testadores da comunidade de testes a gerar permutações de dados utilizando a técnica de partição de equivalência. Além disso, permite adicionar condicionais (variáveis de entrada e saída) e baixar as tabelas geradas em formato CSV/JSON para uso em testes de software.
 
 ## Descrição
 
@@ -13,7 +13,7 @@ A ferramenta permite que o usuário insira variáveis de entrada e saída com su
 - **Saída de Variáveis**: Permite inserir variáveis de saída com suas respectivas partições.
 - **Geração de Permutações**: Gera automaticamente todas as permutações possíveis entre as partições de entrada.
 - **Tabela de Permutação com Condições**: Exibe as permutações em uma tabela organizada, com campos para seleção das variáveis de saída.
-- **Download em CSV**: Permite baixar a tabela de permutação com condições gerada em formato CSV para uso posterior.
+- **Download em CSV**: Permite baixar a tabela de permutação com condições gerada em formato CSV/JSON para uso posterior.
 
 ## Como Usar
 
@@ -31,7 +31,7 @@ A ferramenta permite que o usuário insira variáveis de entrada e saída com su
 
 3. **Gerar Tabela**: Após inserir as variáveis, clique no botão **Permutar** para gerar a tabela de decisão.
 
-4. **Baixar CSV**: Quando a tabela for gerada, você poderá fazer o download da tabela em formato CSV clicando no botão **Baixar Tabela (CSV)**.
+4. **Baixar CSV**: Quando a tabela for gerada, você poderá fazer o download da tabela em formato CSV clicando no botão **Baixar Tabela (CSV)** ou em formato JSON clicando no botão **Baixar Tabela (JSON)**.
 
 ## Exemplo de Uso
 
@@ -49,14 +49,14 @@ Status: Positivo; Negativo
 ```
 
 ### Resultado
-A ferramenta irá gerar uma tabela com todas as combinações possíveis de **Variáveis de Entrada** e **Variáveis de Saída**, que poderá ser exportada em formato CSV.
+A ferramenta irá gerar uma tabela com todas as combinações possíveis de **Variáveis de Entrada** e **Variáveis de Saída**, que poderá ser exportada em formato CSV/JSON.
 
 ## Tecnologias Utilizadas
 
 - **HTML**: Para a estrutura da página.
 - **CSS**: Para o estilo da página.
 - **JavaScript**: Para a lógica de permutação de dados e manipulação do DOM.
-- **Blob API**: Para permitir o download da tabela gerada em formato CSV.
+- **Blob API**: Para permitir o download da tabela gerada em formato CSV/JSON.
 
 ## Contribuições
 
