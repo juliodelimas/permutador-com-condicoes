@@ -1,11 +1,10 @@
-
 # Permutador com Condições
 
-Este projeto oferece uma ferramenta simples para ajudar testadores da comunidade de testes a gerar permutações de dados utilizando a técnica de partição de equivalência. Além disso, permite adicionar condicionais (variáveis de entrada e saída) e baixar as tabelas geradas em formato CSV/JSON para uso em testes de software.
+Este projeto oferece uma ferramenta simples para ajudar testadores da comunidade de testes a gerar permutações de dados utilizando a técnica de partição de equivalência. Além disso, permite adicionar condicionais (variáveis de entrada e saída) e baixar as tabelas geradas em formato CSV/JSON para uso em testes de software. Agora, também é possível criar e baixar templates personalizados com base nas tabelas geradas.
 
 ## Descrição
 
-A ferramenta permite que o usuário insira variáveis de entrada e saída com suas respectivas partições e, a partir disso, gera uma tabela de permutações com a possibilidade de seleção de resultados (como uma Tabela de Decisão) com todas as possíveis combinações (permutação) entre as variáveis de entrada. A tabela pode incluir campos de seleção para as variáveis de saída, permitindo que o testador customize as opções de saída para cada cenário de teste.
+A ferramenta permite que o usuário insira variáveis de entrada e saída com suas respectivas partições e, a partir disso, gera uma tabela de permutações com a possibilidade de seleção de resultados (como uma Tabela de Decisão) com todas as possíveis combinações (permutação) entre as variáveis de entrada. A tabela pode incluir campos de seleção para as variáveis de saída, permitindo que o testador customize as opções de saída para cada cenário de teste. Além disso, o usuário pode criar templates personalizados para renderizar os dados da tabela conforme suas necessidades e exportar os resultados em formato TXT.
 
 ### Funcionalidades
 
@@ -13,7 +12,8 @@ A ferramenta permite que o usuário insira variáveis de entrada e saída com su
 - **Saída de Variáveis**: Permite inserir variáveis de saída com suas respectivas partições.
 - **Geração de Permutações**: Gera automaticamente todas as permutações possíveis entre as partições de entrada.
 - **Tabela de Permutação com Condições**: Exibe as permutações em uma tabela organizada, com campos para seleção das variáveis de saída.
-- **Download em CSV**: Permite baixar a tabela de permutação com condições gerada em formato CSV/JSON para uso posterior.
+- **Template Personalizado**: Permite criar templates customizados para exibir os dados da tabela gerada e exportá-los em formato TXT.
+- **Download em CSV/JSON/TXT**: Permite baixar a tabela de permutação com condições gerada em formato CSV/JSON e os templates populados em formato TXT para uso posterior.
 
 ## Como Usar
 
@@ -31,7 +31,18 @@ A ferramenta permite que o usuário insira variáveis de entrada e saída com su
 
 3. **Gerar Tabela**: Após inserir as variáveis, clique no botão **Permutar** para gerar a tabela de decisão.
 
-4. **Baixar CSV**: Quando a tabela for gerada, você poderá fazer o download da tabela em formato CSV clicando no botão **Baixar Tabela (CSV)** ou em formato JSON clicando no botão **Baixar Tabela (JSON)**.
+4. **Template Personalizado**: 
+   - No campo **Template Personalizado**, insira o modelo de template que deseja usar para renderizar os dados da tabela. Utilize os nomes das variáveis entre `{{}}` para indicar onde os valores devem ser inseridos. Exemplo:
+     ```
+     Nome: {{Variável de Entrada 1}}
+     Status: {{Variável de Entrada 2}}
+     ```
+   - Clique no botão **Popular Template** para gerar os resultados com base no template informado.
+   - Os resultados populados aparecerão em uma área de texto abaixo. Você também poderá baixá-los em formato TXT clicando no botão **Baixar Resultados (TXT)**.
+
+5. **Baixar Resultados**: 
+   - Para a tabela gerada, clique em **Baixar Tabela (CSV)** ou **Baixar Tabela (JSON)**.
+   - Para os resultados populados no template, clique em **Baixar Resultados (TXT)**.
 
 ## Exemplo de Uso
 
@@ -48,15 +59,23 @@ Resultado: Sucesso; Falha
 Status: Positivo; Negativo
 ```
 
+### Template Personalizado
+```
+Nome: {{Cliente}}
+Valor: {{Valor}}
+Resultado: {{Resultado}}
+Status: {{Status}}
+```
+
 ### Resultado
-A ferramenta irá gerar uma tabela com todas as combinações possíveis de **Variáveis de Entrada** e **Variáveis de Saída**, que poderá ser exportada em formato CSV/JSON.
+A ferramenta irá gerar uma tabela com todas as combinações possíveis de **Variáveis de Entrada** e **Variáveis de Saída**, e os dados poderão ser renderizados no template fornecido, com resultados exportáveis em formato TXT, além de CSV/JSON.
 
 ## Tecnologias Utilizadas
 
 - **HTML**: Para a estrutura da página.
 - **CSS**: Para o estilo da página.
-- **JavaScript**: Para a lógica de permutação de dados e manipulação do DOM.
-- **Blob API**: Para permitir o download da tabela gerada em formato CSV/JSON.
+- **JavaScript**: Para a lógica de permutação de dados, manipulação do DOM e geração de templates.
+- **Blob API**: Para permitir o download da tabela e dos templates populados em formato CSV/JSON/TXT.
 
 ## Contribuições
 
