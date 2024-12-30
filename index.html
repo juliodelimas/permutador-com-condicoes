@@ -1,214 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Permutador com Condições</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    />
+
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 100px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            margin: 10px 5px 20px 0;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        table,
-        th,
         td {
-            border: 1px solid black;
-        }
-
-        th,
-        td {
-            padding: 8px;
-            text-align: center;
-        }
-
-        select {
-            width: 100%;
+            vertical-align: middle !important;
         }
     </style>
-</head>
+  </head>
 
-<body>
-    <h1>Permutador com Condições</h1>
-    <h2>Variáveis de Entrada</h2>
-    <textarea id="inputVariables" placeholder="Exemplo:
-Variável de Entrada 1: Partição 1; Partição 2; Partição N
-Variável de Entrada 2: Partição 1; Partição 2; Partição N"></textarea>
+  <body class="content">
+    <div class="hero is-small is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title is-1">Permutador com Condições</h1>    
+                <p class="subtitle">Por Júlio de Lima</p>
+            </div>
+        </div>
+    </div>
 
-    <h2>Variáveis de Saída</h2>
-    <textarea id="outputVariables" placeholder="Exemplo:
-Variável de Saída 1: Partição 1; Partição 2; Partição N
-Variável de Saída 2: Partição 1; Partição 2; Partição N"></textarea>
-    <p>
-        <button id="generateTable">Permutar</button>
-    </p>
-    <h2 id="resultado-title" style="display: none;">Resultado</h2>
-    <div id="resultTable"></div>
+    <div class="container">
+      <section class="section">
+        <h2 class="title is-3">Variáveis de Entrada</h2>
+        <textarea
+          class="textarea"
+          id="inputVariables"
+          placeholder="Exemplo:
+            Variável de Entrada 1: Partição 1; Partição 2; Partição N
+            Variável de Entrada 2: Partição 1; Partição 2; Partição N"
+        ></textarea>
 
-    <p>
-        <button id="downloadCSV" style="display: none;">Baixar Tabela (CSV)</button>
-        <button id="downloadJSON" style="display: none;">Baixar Tabela (JSON)</button>
-    </p>
+        <h2 class="title is-3">Variáveis de Saída</h2>
+        <textarea
+          class="textarea"
+          id="outputVariables"
+          placeholder="Exemplo:
+            Variável de Saída 1: Partição 1; Partição 2; Partição N
+            Variável de Saída 2: Partição 1; Partição 2; Partição N"
+        ></textarea>
+
+        <div class="mt-6">
+          <button class="button is-dark is-fullwidth" id="generateTable">
+            Permutar
+          </button>
+        </div>
+      </section>
+
+      <div class="has-background-primary" id="resultado-divisor" aria-hidden="true" style="height: 4px; display: none;"></div>
+
+      <section class="section">
+        <h2 class="class="title is-3"" id="resultado-title" style="display: none">Resultado</h2>
+        <div id="resultTable"></div>
+
+        <div class="mt-6">
+          <button class="button is-dark" id="downloadCSV" style="display: none">
+            Baixar Tabela (CSV)
+          </button>
+          <button class="button is-dark" id="downloadJSON" style="display: none">
+            Baixar Tabela (JSON)
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="footer has-background-primary">
+        <div class="content has-text-centered">
+            <a class="button" target="_blank" href="https://github.com/juliodelimas/permutador-com-condicoes">Github</a>
+        </div>
+    </footer>
+
     <script>
-        function parseInput(text) {
-            const variables = text.split("\n").filter(line => line.trim() !== "");
-            const partitions = variables.map(line => {
-                const [variable, parts] = line.split(":");
-                return parts ? parts.split(";").map(part => part.trim()) : [];
-            });
-            return { variables, partitions };
-        }
+    function parseInput(text) {
+        const variables = text
+        .split("\n")
+        .filter((line) => line.trim() !== "");
+        const partitions = variables.map((line) => {
+        const [variable, parts] = line.split(":");
+        return parts ? parts.split(";").map((part) => part.trim()) : [];
+        });
+        return { variables, partitions };
+    }
 
-        function permute(arrays) {
-            if (arrays.length === 0) return [[]];
-            const [first, ...rest] = arrays;
-            const restPermuted = permute(rest);
-            return first.flatMap(item => restPermuted.map(perm => [item, ...perm]));
-        }
+    function permute(arrays) {
+        if (arrays.length === 0) return [[]];
+        const [first, ...rest] = arrays;
+        const restPermuted = permute(rest);
+        return first.flatMap((item) =>
+        restPermuted.map((perm) => [item, ...perm])
+        );
+    }
 
-        function generateTableHTML(inputData, outputData, headersInput, headersOutput) {
-            let html = "<table>";
-            html += "<tr><th>Caso de Teste ID</th>"
-                + headersInput.map(h => `<th>${h.split(':')[0]}</th>`).join("")
-                + headersOutput.map(h => `<th>${h.split(':')[0]}</th>`).join("")
-                + "</tr>";
+    function generateTableHTML(
+        inputData,
+        outputData,
+        headersInput,
+        headersOutput
+    ) {
+        let html = '<table class="table is-fullwidth is-striped is-vcentered">';
+        html +=
+        "<tr><th>Caso de Teste ID</th>" +
+        headersInput.map((h) => `<th>${h.split(":")[0]}</th>`).join("") +
+        headersOutput.map((h) => `<th>${h.split(":")[0]}</th>`).join("") +
+        "</tr>";
 
-            inputData.forEach((row, index) => {
-                html += `<tr><td>${index + 1}</td>`;
-                html += row.map(cell => `<td>${cell}</td>`).join("");
-                html += headersOutput.map((_, idx) => {
-                    const options = outputData[idx] || [];
-                    const optionsHTML = options.map(opt => `<option value="${opt}">${opt}</option>`).join("");
-                    return `<td><select class="output-select">${optionsHTML}</select></td>`;
-                }).join("");
-                html += "</tr>";
-            });
-
-            html += "</table>";
-            return html;
-        }
-
-        function generateCSV() {
-            const table = document.querySelector("#resultTable table");
-            const rows = table.querySelectorAll("tbody tr");
-            const headers = Array.from(table.querySelectorAll("th")).map(th => th.innerText);
-            const csvData = [];
-
-            csvData.push(headers.join(";"));
-
-            rows.forEach(row => {
-                const cells = row.querySelectorAll("td");
-                const rowData = [];
-
-                cells.forEach(cell => {
-                    const select = cell.querySelector("select");
-                    if (select) {
-                        rowData.push(select.value);
-                    } else {
-                        rowData.push(cell.innerText);
-                    }
-                });
-
-                if (rowData.length > 0) {
-                    csvData.push(rowData.join(";"));
-                }
-            });
-
-            return csvData.join("\n");
-        }
-
-        function downloadCSV(content, filename) {
-            const blob = new Blob([content], { type: "text/csv;charset=utf-8;" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            link.style.display = "none";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        document.getElementById("generateTable").addEventListener("click", () => {
-            const inputText = document.getElementById("inputVariables").value;
-            const outputText = document.getElementById("outputVariables").value;
-            const partitionsInput = parseInput(inputText).partitions;
-            const partitionsOutput = parseInput(outputText).partitions;
-
-            const permutations = permute(partitionsInput);
-            const headersInput = parseInput(inputText).variables;
-            const headersOutput = parseInput(outputText).variables;
-
-            const resultTable = generateTableHTML(permutations, partitionsOutput, headersInput, headersOutput);
-            document.getElementById("resultado-title").style = '';
-            document.getElementById("resultTable").innerHTML = resultTable;
-            document.getElementById("downloadCSV").style = '';
-            document.getElementById("downloadJSON").style = '';
+        inputData.forEach((row, index) => {
+        html += `<tr><td>${index + 1}</td>`;
+        html += row.map((cell) => `<td>${cell}</td>`).join("");
+        html += headersOutput
+            .map((_, idx) => {
+            const options = outputData[idx] || [];
+            const optionsHTML = options
+                .map((opt) => `<option value="${opt}">${opt}</option>`)
+                .join("");
+            return `<td><div class="select is-info"><select>${optionsHTML}</select></div></td>`;
+            })
+            .join("");
+        html += "</tr>";
         });
 
-        document.getElementById("downloadCSV").addEventListener("click", () => {
-            downloadCSV(generateCSV(), "tabela_permutacao_com_condicoes.csv");
+        html += "</table>";
+        return html;
+    }
+
+    function generateCSV() {
+        const table = document.querySelector("#resultTable table");
+        const rows = table.querySelectorAll("tbody tr");
+        const headers = Array.from(table.querySelectorAll("th")).map(
+        (th) => th.innerText
+        );
+        const csvData = [];
+
+        csvData.push(headers.join(";"));
+
+        rows.forEach((row) => {
+        const cells = row.querySelectorAll("td");
+        const rowData = [];
+
+        cells.forEach((cell) => {
+            const select = cell.querySelector("select");
+            if (select) {
+            rowData.push(select.value);
+            } else {
+            rowData.push(cell.innerText);
+            }
         });
 
-        function generateJSON() {
-            const table = document.querySelector("#resultTable table");
-            const rows = table.querySelectorAll("tbody tr");
-            const headers = Array.from(table.querySelectorAll("th")).map(th => th.innerText);
-            const jsonData = [];
-
-            rows.forEach(row => {
-                const cells = row.querySelectorAll("td");
-                const rowData = {};
-
-                cells.forEach((cell, index) => {
-                    const header = headers[index];
-                    const select = cell.querySelector("select");
-                    if (select) {
-                        rowData[header] = select.value;
-                    } else {
-                        rowData[header] = cell.innerText;
-                    }
-                });
-
-                if (Object.keys(rowData).length > 0) {
-                    jsonData.push(rowData);
-                }
-            });
-
-            return JSON.stringify(jsonData, null, 2);
+        if (rowData.length > 0) {
+            csvData.push(rowData.join(";"));
         }
+        });
 
-        function downloadJSON(content, filename) {
-            const blob = new Blob([content], { type: "application/json;charset=utf-8;" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            link.style.display = "none";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+        return csvData.join("\n");
+    }
+
+    function downloadCSV(content, filename) {
+        const blob = new Blob([content], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    document
+        .getElementById("generateTable")
+        .addEventListener("click", () => {
+        const inputText = document.getElementById("inputVariables").value;
+        const outputText = document.getElementById("outputVariables").value;
+        const partitionsInput = parseInput(inputText).partitions;
+        const partitionsOutput = parseInput(outputText).partitions;
+
+        const permutations = permute(partitionsInput);
+        const headersInput = parseInput(inputText).variables;
+        const headersOutput = parseInput(outputText).variables;
+
+        const resultTable = generateTableHTML(
+            permutations,
+            partitionsOutput,
+            headersInput,
+            headersOutput
+        );
+        document.getElementById("resultado-divisor").style = "height: 4px;";
+        document.getElementById("resultado-title").style = "";
+        document.getElementById("resultTable").innerHTML = resultTable;
+        document.getElementById("downloadCSV").style = "";
+        document.getElementById("downloadJSON").style = "";
+        });
+
+    document.getElementById("downloadCSV").addEventListener("click", () => {
+        downloadCSV(generateCSV(), "tabela_permutacao_com_condicoes.csv");
+    });
+
+    function generateJSON() {
+        const table = document.querySelector("#resultTable table");
+        const rows = table.querySelectorAll("tbody tr");
+        const headers = Array.from(table.querySelectorAll("th")).map(
+        (th) => th.innerText
+        );
+        const jsonData = [];
+
+        rows.forEach((row) => {
+        const cells = row.querySelectorAll("td");
+        const rowData = {};
+
+        cells.forEach((cell, index) => {
+            const header = headers[index];
+            const select = cell.querySelector("select");
+            if (select) {
+            rowData[header] = select.value;
+            } else {
+            rowData[header] = cell.innerText;
+            }
+        });
+
+        if (Object.keys(rowData).length > 0) {
+            jsonData.push(rowData);
         }
+        });
 
-        document.getElementById("downloadJSON").addEventListener("click", () => {
-            const jsonContent = generateJSON();
-            downloadJSON(jsonContent, "tabela_permutacao_com_condicoes.json");
+        return JSON.stringify(jsonData, null, 2);
+    }
+
+    function downloadJSON(content, filename) {
+        const blob = new Blob([content], {
+        type: "application/json;charset=utf-8;",
+        });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    document
+        .getElementById("downloadJSON")
+        .addEventListener("click", () => {
+        const jsonContent = generateJSON();
+        downloadJSON(jsonContent, "tabela_permutacao_com_condicoes.json");
         });
     </script>
-</body>
-
+  </body>
 </html>
