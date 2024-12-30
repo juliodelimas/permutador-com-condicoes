@@ -61,10 +61,22 @@ Status: Positivo; Negativo
 
 ### Template Personalizado
 ```
-Nome: {{Cliente}}
-Valor: {{Valor}}
-Resultado: {{Resultado}}
-Status: {{Status}}
+Caso de Teste: #{{Caso de Teste ID}}
+Título: Transferência {{Tipo}} de {{Valor}} com cliente {{Cliente}}
+
+Pré-Condições:
+- Ter navegado até a tela de Transferências
+
+Passos:
+1. Informar {{Cliente}} no campo Tipo de Cliente
+2. Informar {{Valor}} no campo Valor
+3. Informar {{Tipo}} no campo Tipo de Transferência
+
+Resultado esperado:
+- A transferência resultará em {{Resultado}}
+
+Pós-condições:
+- A transferência passará a ter seu status marcado como {{Status}}
 ```
 
 ### Resultado
