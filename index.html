@@ -1,336 +1,228 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
+<html lang="pt-BR">
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Ferramenta para gerar permutações de dados utilizando técnica de partição de equivalência para testes de software"
+    />
 
     <title>Permutador com Condições</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+    <!-- Bulma CSS Framework -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    />
 
-    <style>
-        td {
-            vertical-align: middle !important;
-        }
+    <!-- Estilos customizados -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" /> -->
+  </head>
 
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-
-<body class="content">
+  <body class="content">
+    <!-- Hero Section -->
     <div class="hero is-small is-primary">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title is-1">Permutador com Condições</h1>
-                <p class="subtitle">Por Júlio de Lima</p>
-            </div>
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">Permutador com Condições</h1>
+          <p class="subtitle">Por Júlio de Lima</p>
         </div>
+      </div>
     </div>
 
+    <!-- Main Container -->
     <div class="container">
-        <section class="section">
+      <!-- Seção de Entrada de Dados -->
+      <section class="section">
+        <div class="columns">
+          <div class="column">
             <h2 class="title is-3">Variáveis de Entrada</h2>
-            <textarea class="textarea" id="inputVariables" placeholder="Exemplo:
-            Variável de Entrada 1: Partição 1; Partição 2; Partição N
-            Variável de Entrada 2: Partição 1; Partição 2; Partição N"></textarea>
+            <textarea
+              class="textarea"
+              id="inputVariables"
+              rows="6"
+              placeholder="Exemplo:
+Variável de Entrada 1: Partição 1; Partição 2; Partição N
+Variável de Entrada 2: Partição 1; Partição 2; Partição N"
+            ></textarea>
+          </div>
 
+          <div class="column">
             <h2 class="title is-3">Variáveis de Saída</h2>
-            <textarea class="textarea" id="outputVariables" placeholder="Exemplo:
-            Variável de Saída 1: Partição 1; Partição 2; Partição N
-            Variável de Saída 2: Partição 1; Partição 2; Partição N"></textarea>
+            <textarea
+              class="textarea"
+              id="outputVariables"
+              rows="6"
+              placeholder="Exemplo:
+Variável de Saída 1: Partição 1; Partição 2; Partição N
+Variável de Saída 2: Partição 1; Partição 2; Partição N"
+            ></textarea>
+          </div>
+        </div>
 
-            <div class="mt-6">
-                <button class="button is-dark is-fullwidth" id="generateTable">
-                    Permutar
-                </button>
-            </div>
-        </section>
+        <div class="has-text-centered mt-6">
+          <button class="button is-primary is-large" id="generateTable">
+            <span class="icon">
+              <i class="fas fa-cogs"></i>
+            </span>
+            <span>Permutar</span>
+          </button>
+        </div>
+      </section>
 
-        <div class="has-background-primary" id="resultado-divisor" aria-hidden="true"
-            style="height: 4px; display: none;"></div>
+      <!-- Divisor de Resultado -->
+      <div
+        class="resultado-divisor"
+        id="resultado-divisor"
+        style="display: none"
+      ></div>
 
-        <section class="section">
-            <h2 class="class=" title is-3"" id="resultado-title" style="display: none">Resultado</h2>
-            <div id="resultTable"></div>
+      <!-- Seção de Resultados -->
+      <section class="section">
+        <h2 class="title is-3" id="resultado-title" style="display: none">
+          Resultado
+        </h2>
+        <div id="resultTable"></div>
 
-            <div class="mt-6">
-                <button class="button is-dark" id="downloadCSV" style="display: none">
-                    Baixar Tabela (CSV)
-                </button>
-                <button class="button is-dark" id="downloadJSON" style="display: none">
-                    Baixar Tabela (JSON)
-                </button>
-            </div>
-        </section>
+        <div class="download-buttons mt-6">
+          <button class="button is-info" id="downloadCSV" style="display: none">
+            <span class="icon">
+              <i class="fas fa-download"></i>
+            </span>
+            <span>Baixar Tabela (CSV)</span>
+          </button>
+          <button
+            class="button is-info"
+            id="downloadJSON"
+            style="display: none"
+          >
+            <span class="icon">
+              <i class="fas fa-download"></i>
+            </span>
+            <span>Baixar Tabela (JSON)</span>
+          </button>
+        </div>
+      </section>
 
-        <section class="section hidden" id="template">
-            <h2 class="title is-3">Template Personalizado</h2>
-            <textarea class="textarea" id="customTemplate" placeholder="Exemplo de Template:
-    Nome: {{Variável de Entrada 1}}
-    Status: {{Variável de Entrada 2}}
-    "></textarea>
+      <!-- Seção de Templates -->
+      <section class="section hidden" id="template">
+        <h2 class="title is-3">Template Personalizado</h2>
+        <div class="field">
+          <label class="label"
+            >Digite seu template usando {{Nome da Variável}} para inserir
+            valores:</label
+          >
+          <div class="control">
+            <textarea
+              class="textarea"
+              id="customTemplate"
+              rows="8"
+              placeholder="Exemplo de Template:
+Caso de Teste: #{{Caso de Teste ID}}
+Nome: {{Variável de Entrada 1}}
+Status: {{Variável de Entrada 2}}
 
-            <div class="mt-6">
-                <button class="button is-dark is-fullwidth" id="generateTemplates">
-                    Popular Template
-                </button>
-            </div>
+Resultado esperado: {{Variável de Saída 1}}"
+            ></textarea>
+          </div>
+        </div>
 
-            <div class="mt-6">
-                <textarea class="textarea" id="populatedTemplates" readonly style="height: 200px; display: none;"
-                    placeholder="Resultados Gerados"></textarea>
-            </div>
+        <div class="has-text-centered mt-4">
+          <div class="buttons is-centered">
+            <button
+              class="button is-info"
+              id="setDefaultTemplate"
+              style="display: none"
+            >
+              <span class="icon">
+                <i class="fas fa-file-alt"></i>
+              </span>
+              <span>Template Padrão (CT)</span>
+            </button>
+            <button
+              class="button is-warning"
+              id="setGherkinTemplate"
+              style="display: none"
+            >
+              <span class="icon">
+                <i class="fas fa-code"></i>
+              </span>
+              <span>Template Padrão (Gherkin)</span>
+            </button>
+            <button class="button is-success" id="generateTemplates">
+              <span class="icon">
+                <i class="fas fa-magic"></i>
+              </span>
+              <span>Popular Template</span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="has-background-primary"
+          id="template-divisor"
+          aria-hidden="true"
+          style="height: 4px; display: none"
+        ></div>
 
-            <div class="mt-6">
-                <button class="button is-dark" id="downloadTemplates" style="display: none">
-                    Baixar Resultados (TXT)
-                </button>
-            </div>
-        </section>
+        <div class="field mt-6">
+          <label class="label">Resultados Gerados:</label>
+          <div class="control">
+            <textarea
+              class="textarea"
+              id="populatedTemplates"
+              readonly
+              rows="10"
+              style="display: none"
+              placeholder="Resultados aparecerão aqui..."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="has-text-centered mt-4">
+          <button
+            class="button is-success"
+            id="downloadTemplates"
+            style="display: none"
+          >
+            <span class="icon">
+              <i class="fas fa-download"></i>
+            </span>
+            <span>Baixar Resultados (TXT)</span>
+          </button>
+        </div>
+      </section>
     </div>
 
+    <!-- Footer -->
     <footer class="footer has-background-primary">
-        <div class="content has-text-centered">
-            <a class="button" target="_blank" href="https://github.com/juliodelimas/permutador-com-condicoes">Github</a>
-        </div>
+      <div class="content has-text-centered">
+        <p class="has-text-white">
+          <strong class="has-text-white">Permutador com Condições</strong> -
+          Ferramenta para geração de casos de teste
+        </p>
+        <a
+          class="button is-light"
+          target="_blank"
+          href="https://github.com/juliodelimas/permutador-com-condicoes"
+        >
+          <span class="icon">
+            <i class="fab fa-github"></i>
+          </span>
+          <span>GitHub</span>
+        </a>
+      </div>
     </footer>
 
-    <script>
-        function parseInput(text) {
-            const variables = text
-                .split("\n")
-                .filter((line) => line.trim() !== "");
-            const partitions = variables.map((line) => {
-                const [variable, parts] = line.split(":");
-                return parts ? parts.split(";").map((part) => part.trim()) : [];
-            });
-            return { variables, partitions };
-        }
+    <!-- Container para notificações flutuantes -->
+    <div class="toast-container" id="toast-container"></div>
 
-        function permute(arrays) {
-            if (arrays.length === 0) return [[]];
-            const [first, ...rest] = arrays;
-            const restPermuted = permute(rest);
-            return first.flatMap((item) =>
-                restPermuted.map((perm) => [item, ...perm])
-            );
-        }
+    <!-- Font Awesome para ícones -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 
-        function generateTableHTML(
-            inputData,
-            outputData,
-            headersInput,
-            headersOutput
-        ) {
-            let html = '<table class="table is-fullwidth is-striped is-vcentered">';
-            html +=
-                "<tr><th>Caso de Teste ID</th>" +
-                headersInput.map((h) => `<th>${h.split(":")[0]}</th>`).join("") +
-                headersOutput.map((h) => `<th>${h.split(":")[0]}</th>`).join("") +
-                "</tr>";
-
-            inputData.forEach((row, index) => {
-                html += `<tr><td>${index + 1}</td>`;
-                html += row.map((cell) => `<td>${cell}</td>`).join("");
-                html += headersOutput
-                    .map((_, idx) => {
-                        const options = outputData[idx] || [];
-                        const optionsHTML = options
-                            .map((opt) => `<option value="${opt}">${opt}</option>`)
-                            .join("");
-                        return `<td><div class="select is-info"><select>${optionsHTML}</select></div></td>`;
-                    })
-                    .join("");
-                html += "</tr>";
-            });
-
-            html += "</table>";
-            return html;
-        }
-
-        function generateCSV() {
-            const table = document.querySelector("#resultTable table");
-            const rows = table.querySelectorAll("tbody tr");
-            const headers = Array.from(table.querySelectorAll("th")).map(
-                (th) => th.innerText
-            );
-            const csvData = [];
-
-            csvData.push(headers.join(";"));
-
-            rows.forEach((row) => {
-                const cells = row.querySelectorAll("td");
-                const rowData = [];
-
-                cells.forEach((cell) => {
-                    const select = cell.querySelector("select");
-                    if (select) {
-                        rowData.push(select.value);
-                    } else {
-                        rowData.push(cell.innerText);
-                    }
-                });
-
-                if (rowData.length > 0) {
-                    csvData.push(rowData.join(";"));
-                }
-            });
-
-            return csvData.join("\n");
-        }
-
-        function downloadCSV(content, filename) {
-            const blob = new Blob([content], { type: "text/csv;charset=utf-8;" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            link.style.display = "none";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        document
-            .getElementById("generateTable")
-            .addEventListener("click", () => {
-                const inputText = document.getElementById("inputVariables").value;
-                const outputText = document.getElementById("outputVariables").value;
-                const partitionsInput = parseInput(inputText).partitions;
-                const partitionsOutput = parseInput(outputText).partitions;
-
-                const permutations = permute(partitionsInput);
-                const headersInput = parseInput(inputText).variables;
-                const headersOutput = parseInput(outputText).variables;
-
-                const resultTable = generateTableHTML(
-                    permutations,
-                    partitionsOutput,
-                    headersInput,
-                    headersOutput
-                );
-                document.getElementById("resultado-divisor").style = "height: 4px;";
-                document.getElementById("resultado-title").style = "";
-                document.getElementById("resultTable").innerHTML = resultTable;
-                document.getElementById("downloadCSV").style = "";
-                document.getElementById("downloadJSON").style = "";
-                document.getElementById("template").classList.remove("hidden");
-            });
-
-        document.getElementById("downloadCSV").addEventListener("click", () => {
-            downloadCSV(generateCSV(), "tabela_permutacao_com_condicoes.csv");
-        });
-
-        function generateJSON() {
-            const table = document.querySelector("#resultTable table");
-            const rows = table.querySelectorAll("tbody tr");
-            const headers = Array.from(table.querySelectorAll("th")).map(
-                (th) => th.innerText
-            );
-            const jsonData = [];
-
-            rows.forEach((row) => {
-                const cells = row.querySelectorAll("td");
-                const rowData = {};
-
-                cells.forEach((cell, index) => {
-                    const header = headers[index];
-                    const select = cell.querySelector("select");
-                    if (select) {
-                        rowData[header] = select.value;
-                    } else {
-                        rowData[header] = cell.innerText;
-                    }
-                });
-
-                if (Object.keys(rowData).length > 0) {
-                    jsonData.push(rowData);
-                }
-            });
-
-            return JSON.stringify(jsonData, null, 2);
-        }
-
-        function downloadJSON(content, filename) {
-            const blob = new Blob([content], {
-                type: "application/json;charset=utf-8;",
-            });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = filename;
-            link.style.display = "none";
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-
-        document
-            .getElementById("downloadJSON")
-            .addEventListener("click", () => {
-                const jsonContent = generateJSON();
-                downloadJSON(jsonContent, "tabela_permutacao_com_condicoes.json");
-            });
-
-        function populateTemplate(template, rowData) {
-            let result = template;
-            for (const [key, value] of Object.entries(rowData)) {
-                const placeholder = `{{${key}}}`;
-                result = result.replaceAll(placeholder, value);
-            }
-            return result;
-        }
-
-        document.getElementById("generateTemplates").addEventListener("click", () => {
-            const templateText = document.getElementById("customTemplate").value;
-            const table = document.querySelector("#resultTable table");
-            const rows = table.querySelectorAll("tbody tr");
-            const headers = Array.from(table.querySelectorAll("th")).map(
-                (th) => th.innerText
-            );
-            const populatedTemplates = [];
-
-            rows.forEach((row) => {
-                const cells = row.querySelectorAll("td");
-                const rowData = {};
-
-                cells.forEach((cell, index) => {
-                    const header = headers[index];
-                    const select = cell.querySelector("select");
-                    if (select) {
-                        rowData[header] = select.value;
-                    } else {
-                        rowData[header] = cell.innerText;
-                    }
-                });
-
-                const populatedTemplate = populateTemplate(templateText, rowData);
-                populatedTemplates.push(populatedTemplate);
-            });
-
-            populatedTemplates.shift();
-
-            const outputTextarea = document.getElementById("populatedTemplates");
-            outputTextarea.value = populatedTemplates.join("\n\n---\n\n");
-            outputTextarea.style.display = "block";
-
-            const downloadButton = document.getElementById("downloadTemplates");
-            downloadButton.style.display = "block";
-            downloadButton.addEventListener("click", () => {
-                const blob = new Blob([outputTextarea.value], {
-                    type: "text/plain;charset=utf-8;",
-                });
-                const link = document.createElement("a");
-                link.href = URL.createObjectURL(blob);
-                link.download = "resultados_template.txt";
-                link.style.display = "none";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            });
-        });
-    </script>
-</body>
-
+    <!-- Scripts da aplicação -->
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+  </body>
 </html>
