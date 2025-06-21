@@ -190,10 +190,9 @@ function permute(arrays) {
 
 ### 2. Novo Template
 
-1. Adicione em `CONFIG.TEMPLATES`
-2. Crie botão na interface
-3. Implemente método na classe `PermutadorApp`
-4. Teste com diferentes dados
+1. Crie botão na interface
+2. Implemente método na classe `PermutadorApp`
+3. Teste com diferentes dados
 
 ### 3. Novo Formato de Export
 
@@ -241,7 +240,6 @@ function permute(arrays) {
 
 - Máximo 10 variáveis
 - Máximo 20 partições por variável
-- Configurável em `CONFIG`
 
 ## 🔄 Melhorias Futuras
 
