@@ -215,39 +215,6 @@ function permute(arrays) {
 - Confirme validação
 - Use console.log para debug
 
-## 📊 Performance
-
-### Otimizações Implementadas
-
-- Lazy loading de recursos
-- Debounce em inputs (se necessário)
-- Processamento assíncrono para grandes volumes
-
-### Limites Atuais
-
-- Máximo 10 variáveis
-- Máximo 20 partições por variável
-
-## 🔄 Melhorias Futuras
-
-### Prioridade Alta
-
-- [ ] Histórico de sessões (localStorage)
-- [ ] Importação de arquivos CSV/JSON
-- [ ] Validação avançada de entrada
-
-### Prioridade Média
-
-- [ ] Temas personalizáveis
-- [ ] Mais formatos de export (Excel, PDF)
-- [ ] API REST para integração
-
-### Prioridade Baixa
-
-- [ ] PWA (Progressive Web App)
-- [ ] Internacionalização (i18n)
-- [ ] Plugins para extensibilidade
-
 ## 🤝 Contribuindo
 
 ### Processo de Contribuição
@@ -279,27 +246,6 @@ perf: melhoria de performance
 - [ ] Documentação atualizada se necessário
 - [ ] Sem console.log em produção
 - [ ] Interface responsiva mantida
-
-## 📚 Recursos Úteis
-
-### Documentação
-
-- [MDN Web Docs](https://developer.mozilla.org/)
-- [Bulma CSS](https://bulma.io/documentation/)
-- [Font Awesome](https://fontawesome.com/icons)
-
-### Ferramentas
-
-- [VS Code](https://code.visualstudio.com/) - Editor recomendado
-- [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools)
-- [Can I Use](https://caniuse.com/) - Compatibilidade de browsers
-
-### Extensões VS Code Recomendadas
-
-- Live Server
-- Prettier
-- Auto Rename Tag
-- Bracket Pair Colorizer
 
 ---
 
