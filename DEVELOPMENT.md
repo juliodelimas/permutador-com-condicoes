@@ -74,18 +74,6 @@ downloadFile(content, filename, type)
 - **Font Awesome**: Ícones vetoriais
 - **Custom CSS**: Estilos específicos em `styles.css`
 
-### Responsividade
-
-- Mobile-first approach
-- Breakpoints do Bulma
-- Flexbox para layouts
-
-### Acessibilidade
-
-- Labels apropriados
-- Contraste adequado
-- Navegação por teclado
-
 ## 🔄 Fluxo de Dados
 
 ### 1. Entrada de Dados
@@ -168,7 +156,6 @@ function permute(arrays) {
 
 ### CSS
 
-- **BEM**: Para nomenclatura de classes personalizadas
 - **Bulma**: Use classes do framework quando possível
 - **Responsivo**: Mobile-first
 - **Variáveis CSS**: Para cores e espaçamentos
