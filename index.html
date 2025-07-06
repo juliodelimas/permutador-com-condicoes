@@ -8,7 +8,10 @@
     <title>Permutador com Condições</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
-
+    <link rel="stylesheet" href="./main.css" />
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" />
+    
     <style>
         td {
             vertical-align: middle !important;
@@ -24,8 +27,8 @@
     <div class="hero is-small is-primary">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title is-1">Permutador com Condições</h1>
-                <p class="subtitle">Por Júlio de Lima</p>
+                <h1 class="title is-1 has-text-primary-100">Permutador com Condições</h1>
+                <p class="subtitle has-text-primary-100">Por Júlio de Lima</p>
             </div>
         </div>
     </div>
@@ -69,15 +72,22 @@
         <section class="section hidden" id="template">
             <h2 class="title is-3">Template Personalizado</h2>
             <textarea class="textarea" id="customTemplate" placeholder="Exemplo de Template:
-    Nome: {{Variável de Entrada 1}}
-    Status: {{Variável de Entrada 2}}
-    "></textarea>
+                Nome: {{Variável de Entrada 1}}
+                Status: {{Variável de Entrada 2}}
+                "></textarea>
 
             <div class="mt-6">
                 <button class="button is-dark is-fullwidth" id="generateTemplates">
                     Popular Template
                 </button>
             </div>
+        </section>
+
+        <div class="has-background-primary" id="template-divisor" aria-hidden="true" 
+            style="height: 4px; display: none;"></div>
+
+        <section class="section">
+            <h2 class="class=" title is-3"" id="template-title" style="display: none">Resultados Gerados</h2>
 
             <div class="mt-6">
                 <textarea class="textarea" id="populatedTemplates" readonly style="height: 200px; display: none;"
@@ -94,7 +104,9 @@
 
     <footer class="footer has-background-primary">
         <div class="content has-text-centered">
-            <a class="button" target="_blank" href="https://github.com/juliodelimas/permutador-com-condicoes">Github</a>
+            <container class="icon is-large has-text-weight-bold">
+                <a class="mdi mdi-github mdi-48px has-text-primary-100" target="_blank" href="https://github.com/juliodelimas/permutador-com-condicoes">GitHub</a>
+            </container>
         </div>
     </footer>
 
@@ -141,7 +153,7 @@
                         const optionsHTML = options
                             .map((opt) => `<option value="${opt}">${opt}</option>`)
                             .join("");
-                        return `<td><div class="select is-info"><select>${optionsHTML}</select></div></td>`;
+                        return `<td><div class="select is-primary"><select>${optionsHTML}</select></div></td>`;
                     })
                     .join("");
                 html += "</tr>";
@@ -310,6 +322,9 @@
             });
 
             populatedTemplates.shift();
+
+            document.getElementById("template-divisor").style = "height: 4px;";
+            document.getElementById("template-title").style = "";
 
             const outputTextarea = document.getElementById("populatedTemplates");
             outputTextarea.value = populatedTemplates.join("\n\n---\n\n");
