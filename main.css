@@ -1,0 +1,9 @@
+:root {
+  --bulma-primary-h: 300deg;
+  --bulma-primary-s: 50%;
+  --bulma-primary-l: 50%;
+}
+
+.is-striped {
+  --bulma-table-striped-row-even-background-color: hsl(300deg, 50%, 95%);
+}

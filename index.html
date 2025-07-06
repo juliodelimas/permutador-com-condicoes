@@ -1,228 +1,174 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Ferramenta para gerar permutações de dados utilizando técnica de partição de equivalência para testes de software"
-    />
 
-    <title>Permutador com Condições</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Ferramenta para gerar permutações de dados utilizando técnica de partição de equivalência para testes de software" />
 
-    <!-- Bulma CSS Framework -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
-    />
+  <title>Permutador com Condições</title>
 
-    <!-- Estilos customizados -->
-    <link rel="stylesheet" href="css/styles.css" />
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" /> -->
-  </head>
+  <!-- Bulma CSS Framework -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
 
-  <body class="content">
-    <!-- Hero Section -->
-    <div class="hero is-small is-primary">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">Permutador com Condições</h1>
-          <p class="subtitle">Por Júlio de Lima</p>
-        </div>
+  <!-- Estilos customizados -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" /> -->
+</head>
+
+<body class="content">
+  <!-- Hero Section -->
+  <div class="hero is-small is-primary">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">Permutador com Condições</h1>
+        <p class="subtitle">Por Júlio de Lima</p>
       </div>
     </div>
+  </div>
 
-    <!-- Main Container -->
-    <div class="container">
-      <!-- Seção de Entrada de Dados -->
-      <section class="section">
-        <div class="columns">
-          <div class="column">
-            <h2 class="title is-3">Variáveis de Entrada</h2>
-            <textarea
-              class="textarea"
-              id="inputVariables"
-              rows="6"
-              placeholder="Exemplo:
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Seção de Entrada de Dados -->
+    <section class="section">
+      <div class="columns">
+        <div class="column">
+          <h2 class="title is-3">Variáveis de Entrada</h2>
+          <textarea class="textarea" id="inputVariables" rows="6" placeholder="Exemplo:
 Variável de Entrada 1: Partição 1; Partição 2; Partição N
-Variável de Entrada 2: Partição 1; Partição 2; Partição N"
-            ></textarea>
-          </div>
+Variável de Entrada 2: Partição 1; Partição 2; Partição N"></textarea>
+        </div>
 
-          <div class="column">
-            <h2 class="title is-3">Variáveis de Saída</h2>
-            <textarea
-              class="textarea"
-              id="outputVariables"
-              rows="6"
-              placeholder="Exemplo:
+        <div class="column">
+          <h2 class="title is-3">Variáveis de Saída</h2>
+          <textarea class="textarea" id="outputVariables" rows="6" placeholder="Exemplo:
 Variável de Saída 1: Partição 1; Partição 2; Partição N
-Variável de Saída 2: Partição 1; Partição 2; Partição N"
-            ></textarea>
-          </div>
+Variável de Saída 2: Partição 1; Partição 2; Partição N"></textarea>
         </div>
+      </div>
 
-        <div class="has-text-centered mt-6">
-          <button class="button is-primary is-large" id="generateTable">
-            <span class="icon">
-              <i class="fas fa-cogs"></i>
-            </span>
-            <span>Permutar</span>
-          </button>
-        </div>
-      </section>
+      <div class="has-text-centered mt-6">
+        <button class="button is-primary is-large" id="generateTable">
+          <span class="icon">
+            <i class="fas fa-cogs"></i>
+          </span>
+          <span>Permutar</span>
+        </button>
+      </div>
+    </section>
 
-      <!-- Divisor de Resultado -->
-      <div
-        class="resultado-divisor"
-        id="resultado-divisor"
-        style="display: none"
-      ></div>
+    <!-- Divisor de Resultado -->
+    <div class="resultado-divisor" id="resultado-divisor" style="display: none"></div>
 
-      <!-- Seção de Resultados -->
-      <section class="section">
-        <h2 class="title is-3" id="resultado-title" style="display: none">
-          Resultado
-        </h2>
-        <div id="resultTable"></div>
+    <!-- Seção de Resultados -->
+    <section class="section">
+      <h2 class="title is-3" id="resultado-title" style="display: none">
+        Resultado
+      </h2>
+      <div id="resultTable"></div>
 
-        <div class="download-buttons mt-6">
-          <button class="button is-info" id="downloadCSV" style="display: none">
-            <span class="icon">
-              <i class="fas fa-download"></i>
-            </span>
-            <span>Baixar Tabela (CSV)</span>
-          </button>
-          <button
-            class="button is-info"
-            id="downloadJSON"
-            style="display: none"
-          >
-            <span class="icon">
-              <i class="fas fa-download"></i>
-            </span>
-            <span>Baixar Tabela (JSON)</span>
-          </button>
-        </div>
-      </section>
+      <div class="download-buttons mt-6">
+        <button class="button is-info" id="downloadCSV" style="display: none">
+          <span class="icon">
+            <i class="fas fa-download"></i>
+          </span>
+          <span>Baixar Tabela (CSV)</span>
+        </button>
+        <button class="button is-info" id="downloadJSON" style="display: none">
+          <span class="icon">
+            <i class="fas fa-download"></i>
+          </span>
+          <span>Baixar Tabela (JSON)</span>
+        </button>
+      </div>
+    </section>
 
-      <!-- Seção de Templates -->
-      <section class="section hidden" id="template">
-        <h2 class="title is-3">Template Personalizado</h2>
-        <div class="field">
-          <label class="label"
-            >Digite seu template usando {{Nome da Variável}} para inserir
-            valores:</label
-          >
-          <div class="control">
-            <textarea
-              class="textarea"
-              id="customTemplate"
-              rows="8"
-              placeholder="Exemplo de Template:
+    <!-- Seção de Templates -->
+    <section class="section hidden" id="template">
+      <h2 class="title is-3">Template Personalizado</h2>
+      <div class="field">
+        <label class="label">Digite seu template usando {{Nome da Variável}} para inserir
+          valores:</label>
+        <div class="control">
+          <textarea class="textarea" id="customTemplate" rows="8" placeholder="Exemplo de Template:
 Caso de Teste: #{{Caso de Teste ID}}
 Nome: {{Variável de Entrada 1}}
 Status: {{Variável de Entrada 2}}
 
-Resultado esperado: {{Variável de Saída 1}}"
-            ></textarea>
-          </div>
+Resultado esperado: {{Variável de Saída 1}}"></textarea>
         </div>
+      </div>
 
-        <div class="has-text-centered mt-4">
-          <div class="buttons is-centered">
-            <button
-              class="button is-info"
-              id="setDefaultTemplate"
-              style="display: none"
-            >
-              <span class="icon">
-                <i class="fas fa-file-alt"></i>
-              </span>
-              <span>Template Padrão (CT)</span>
-            </button>
-            <button
-              class="button is-warning"
-              id="setGherkinTemplate"
-              style="display: none"
-            >
-              <span class="icon">
-                <i class="fas fa-code"></i>
-              </span>
-              <span>Template Padrão (Gherkin)</span>
-            </button>
-            <button class="button is-success" id="generateTemplates">
-              <span class="icon">
-                <i class="fas fa-magic"></i>
-              </span>
-              <span>Popular Template</span>
-            </button>
-          </div>
-        </div>
-        <div
-          class="has-background-primary"
-          id="template-divisor"
-          aria-hidden="true"
-          style="height: 4px; display: none"
-        ></div>
-
-        <div class="field mt-6">
-          <label class="label">Resultados Gerados:</label>
-          <div class="control">
-            <textarea
-              class="textarea"
-              id="populatedTemplates"
-              readonly
-              rows="10"
-              style="display: none"
-              placeholder="Resultados aparecerão aqui..."
-            ></textarea>
-          </div>
-        </div>
-
-        <div class="has-text-centered mt-4">
-          <button
-            class="button is-success"
-            id="downloadTemplates"
-            style="display: none"
-          >
+      <div class="has-text-centered mt-4">
+        <div class="buttons is-centered">
+          <button class="button is-info" id="setDefaultTemplate" style="display: none">
             <span class="icon">
-              <i class="fas fa-download"></i>
+              <i class="fas fa-file-alt"></i>
             </span>
-            <span>Baixar Resultados (TXT)</span>
+            <span>Template Padrão (CT)</span>
+          </button>
+          <button class="button is-warning" id="setGherkinTemplate" style="display: none">
+            <span class="icon">
+              <i class="fas fa-code"></i>
+            </span>
+            <span>Template Padrão (Gherkin)</span>
+          </button>
+          <button class="button is-success" id="generateTemplates">
+            <span class="icon">
+              <i class="fas fa-magic"></i>
+            </span>
+            <span>Popular Template</span>
           </button>
         </div>
-      </section>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer has-background-primary">
-      <div class="content has-text-centered">
-        <p class="has-text-white">
-          <strong class="has-text-white">Permutador com Condições</strong> -
-          Ferramenta para geração de casos de teste
-        </p>
-        <a
-          class="button is-light"
-          target="_blank"
-          href="https://github.com/juliodelimas/permutador-com-condicoes"
-        >
-          <span class="icon">
-            <i class="fab fa-github"></i>
-          </span>
-          <span>GitHub</span>
-        </a>
       </div>
-    </footer>
+      <div class="has-background-primary" id="template-divisor" aria-hidden="true" style="height: 4px; display: none">
+      </div>
 
-    <!-- Container para notificações flutuantes -->
-    <div class="toast-container" id="toast-container"></div>
+      <div class="field mt-6">
+        <label class="label">Resultados Gerados:</label>
+        <div class="control">
+          <textarea class="textarea" id="populatedTemplates" readonly rows="10" style="display: none"
+            placeholder="Resultados aparecerão aqui..."></textarea>
+        </div>
+      </div>
 
-    <!-- Font Awesome para ícones -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+      <div class="has-text-centered mt-4">
+        <button class="button is-success" id="downloadTemplates" style="display: none">
+          <span class="icon">
+            <i class="fas fa-download"></i>
+          </span>
+          <span>Baixar Resultados (TXT)</span>
+        </button>
+      </div>
+    </section>
+  </div>
 
-    <!-- Scripts da aplicação -->
-    <script src="js/utils.js"></script>
-    <script src="js/app.js"></script>
-  </body>
+  <!-- Footer -->
+  <footer class="footer has-background-primary">
+    <div class="content has-text-centered">
+      <p class="has-text-white">
+        <strong class="has-text-white">Permutador com Condições</strong> -
+        Ferramenta para geração de casos de teste
+      </p>
+      <a class="button is-light" target="_blank" href="https://github.com/juliodelimas/permutador-com-condicoes">
+        <span class="icon">
+          <i class="fab fa-github"></i>
+        </span>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Container para notificações flutuantes -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Font Awesome para ícones -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+  <!-- Scripts da aplicação -->
+  <script src="js/utils.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
 </html>
