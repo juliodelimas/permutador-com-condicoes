@@ -54,7 +54,7 @@ function generateTableHTML(inputData, outputData, headersInput, headersOutput) {
         const optionsHTML = options
           .map((opt) => `<option value="${opt}">${opt}</option>`)
           .join("");
-        return `<td><div class="select is-info is-small"><select>${optionsHTML}</select></div></td>`;
+        return `<td><div class="select is-primary is-small"><select>${optionsHTML}</select></div></td>`;
       })
       .join("");
     html += "</tr>";
