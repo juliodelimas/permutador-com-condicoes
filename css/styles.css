@@ -1,0 +1,176 @@
+/* Estilos customizados para o Permutador com Condições */
+
+td {
+  vertical-align: middle !important;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Estilo para o divisor de resultado */
+.resultado-divisor {
+  height: 4px;
+  background: hsl(306, 27%, 49%);
+  margin: 2rem 0;
+}
+
+/* Melhorias na interface */
+.textarea {
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.download-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .download-buttons {
+    flex-direction: column;
+  }
+
+  .download-buttons .button {
+    width: 100%;
+  }
+}
+
+/* Estilo para templates populados */
+#populatedTemplates {
+  font-family: "Courier New", monospace;
+  font-size: 0.85rem;
+  background-color: #4e4c4c;
+}
+
+/* Melhorias nos botões */
+.buttons.is-centered {
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Responsividade para botões */
+@media (max-width: 768px) {
+  .buttons.is-centered .button {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Container para notificações flutuantes */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  max-width: 400px;
+  pointer-events: none;
+}
+
+/* Notificações flutuantes */
+.toast-notification {
+  pointer-events: auto;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: slideInRight 0.3s ease-out;
+  transition: all 0.3s ease;
+}
+
+.toast-notification.removing {
+  animation: slideOutRight 0.3s ease-in;
+}
+
+/* Animações das notificações */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Responsividade para notificações em mobile */
+@media (max-width: 768px) {
+  .toast-container {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideOutRight {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
+}
+
+/* Notificações antigas (manter para compatibilidade) */
+#error-notification,
+#success-notification {
+  margin-bottom: 1rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Template customizado */
+#customTemplate {
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+}
+
+:root {
+  --bulma-primary-h: 300deg;
+  --bulma-primary-s: 50%;
+  --bulma-primary-l: 50%;
+}
+
+.is-striped {
+  --bulma-table-striped-row-even-background-color: hsl(300, 3%, 44%);
+}
